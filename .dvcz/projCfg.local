@@ -1,0 +1,7 @@
+dir:pkg:wireops
+
+code:std:.dvcz/projCfg
+code:std:.dvcz/projCfg.local
+
+txt:std:LICENSE-MIT.md
+

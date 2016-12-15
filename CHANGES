@@ -1,0 +1,10 @@
+~/dev/py/wireops/CHANGES
+
+v0.1.1
+    2016-12-15
+        * add pylint, coverage, license, README etc; various 
+            configuration files                                     SLOC 1791
+v0.1.0
+    2016-12-15
+        * initial commit: split from fieldz
+
