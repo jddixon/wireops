@@ -8,7 +8,7 @@ import time
 import unittest
 
 from rnglib import SimpleRNG
-from fieldz.field_types import FieldTypes, FieldStr
+from wireops.field_types import FieldTypes, FieldStr
 
 LEN_NULLS = 1024
 NULLS = [0] * LEN_NULLS

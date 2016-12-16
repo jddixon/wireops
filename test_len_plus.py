@@ -1,36 +1,34 @@
 #!/usr/bin/env python3
-
 # testLenPlus.py
+
+""" Test length-preceded fields and data types. """
+
 import time
 import unittest
 
 from rnglib import SimpleRNG
-from fieldz.chan import Channel
-from fieldz.raw import(
-    # VARINT_TYPE,                            # PACKED_VARINT_TYPE,
-    B32_TYPE, B64_TYPE, LEN_PLUS_TYPE,
-    B128_TYPE, B160_TYPE, B256_TYPE,
-
-    field_hdr, field_hdr_len,
-    read_field_hdr,
-    # hdr_field_nbr, hdr_type,
-    length_as_varint,  # write_varint_field,
-    read_raw_varint, write_raw_varint,
-    read_raw_b32,           # write_b32_field,
-    read_raw_b64,           # write_b64_field,
-    read_raw_len_plus,      #
-    write_len_plus_field,
-    read_raw_b128,          # write_b128_field,
-    read_raw_b160,          # write_b160_field,
-    read_raw_b256,          # write_b256_field,
-    # next_power_of_two,
-    # WireBuffer,
-)
+from wireops.chan import Channel
+#
+from wireops.raw import(
+    LEN_PLUS_TYPE, field_hdr, read_field_hdr, length_as_varint,
+    read_raw_len_plus, write_len_plus_field,)
 
 LEN_BUFF = 1024
 
 
+def dump_buffer(buf):
+    """
+    Display the contents of a buffer as hex.
+
+    For debugging; not currently used.
+    """
+    for i in range(16):
+        print("0x%02x " % buf[i], end=' ')
+    print()
+
+
 class TestLenPlus(unittest.TestCase):
+    """ Test length-preceded fields and data types. """
 
     def setUp(self):
         self.rng = SimpleRNG(time.time())
@@ -38,21 +36,15 @@ class TestLenPlus(unittest.TestCase):
     def tearDown(self):
         pass
 
-    # utility functions #############################################
-
-    # actual unit tests #############################################
-    def dump_buffer(self, buf):
-        for i in range(16):
-            print("0x%02x " % buf[i], end=' ')
-        print()
-
     def round_trip(self, string):
         """
-        this tests writing and reading a string of bytes as the first and
-        only field in a buffer
+        Verify that a unicode string converted to wire format and then
+        back again is the same string.
+
+        This tests writing and reading a string of bytes as the first and
+        only field in a buffer.
         """
         chan = Channel(LEN_BUFF)
-        buf = chan.buffer
 
         # -- write the bytearray ------------------------------------
         field_nbr = 1 + self.rng.next_int16(1024)
@@ -60,7 +52,7 @@ class TestLenPlus(unittest.TestCase):
         chan.flip()
 
 #       # DEBUG
-#       print("buffer after writing lenPlus field: " + str(buf))
+#       print("buffer after writing lenPlus field: " + str(chan.buffer))
 #       # END
 
         # -- read the value written ---------------------------------
@@ -84,6 +76,7 @@ class TestLenPlus(unittest.TestCase):
             offset3)
 
     def test_encode_decode(self):
+        """ Test round tripping utf-8 strings. """
         self.round_trip(''.encode('utf8'))
         self.round_trip('ndx_'.encode('utf8'))
         self.round_trip('should be a random string of bytes'.encode('utf8'))
