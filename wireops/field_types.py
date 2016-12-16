@@ -1,8 +1,10 @@
-# fieldz/fieldTypes.py
+# wireops/fieldTypes.py
+
+""" Types for primitive fields. """
 
 # import sys
 
-# from fieldz.enum import SimpleEnumWithRepr
+# from wireops.enum import SimpleEnumWithRepr
 #
 # #@singleton
 # class FieldTypes(SimpleEnumWithRepr):
@@ -45,6 +47,7 @@ from enum import IntEnum
 
 
 class FieldTypes(IntEnum):
+    """ Types for primitive fields. """
     V_BOOL = 0
     V_ENUM = 1
     V_INT32 = 2
@@ -64,14 +67,15 @@ class FieldTypes(IntEnum):
     L_MSG = 16
     F_BYTES16 = 17
     F_BYTES20 = 18
-    # XXX next two must be identical
+    # next two * MUST BE * identical
     F_BYTES32 = 19
     MAX_NDX = 19
 
 
 class FieldStr(object):
+    """ String names for primitive field types. """
 
-    _str_form = [
+    STR_FORM = [
         'vbool',
         'venum',
         'vint32',
@@ -94,17 +98,18 @@ class FieldStr(object):
         'fbytes32',
     ]
 
+    STR2NDX = {}
+    for _type in FieldTypes:
+        STR2NDX[STR_FORM[_type]] = _type
+
     @classmethod
     def as_str(cls, ndx):
-        return FieldStr._str_form[ndx]
+        """ Given its index, return the string name of the type. """
+        return cls.STR_FORM[ndx]
 
-    def __init__(self):
-        self._str2ndx = {}
-        for _type in FieldTypes:
-            self._str2ndx[FieldStr._str_form[_type]] = _type
-
-    def ndx(self, string):
-        return self._str2ndx[string]
-
+    @classmethod
+    def ndx(cls, name):
+        """ Given its name in string form, return the index of field type. """
+        return cls.STR2NDX[name]
 
 # sys.modules[__name__] = FieldTypes

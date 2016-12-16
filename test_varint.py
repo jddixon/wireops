@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
-
 # testVarint.py
+
+""" Test reading and writing low-level data types. """
+
 import time
 import unittest
 
 from rnglib import SimpleRNG
-# from fieldz.raw import *
+# from wireops.raw import *
 
-from fieldz.raw import(
+from wireops.raw import(
     VARINT_TYPE,                            # PACKED_VARINT_TYPE,
     #B32_TYPE, B64_TYPE, LEN_PLUS_TYPE,
     #B128_TYPE, B160_TYPE, B256_TYPE,
@@ -26,12 +28,22 @@ from fieldz.raw import(
     # next_power_of_two,
     # WireBuffer,
 )
-from fieldz.chan import Channel
+from wireops.chan import Channel
 
 LEN_BUFFER = 1024
 
+# CURRENTLY UNUSED
+
+
+def dump_buffer(buf):
+    """ Display buffer as hex. """
+    for i in range(16):
+        print("0x%02x " % buf[i], end=' ')
+    print()
+
 
 class TestVarint(unittest.TestCase):
+    """ Test reading and writing low-level data types. """
 
     def setUp(self):
         self.rng = SimpleRNG(time.time())
@@ -39,14 +51,10 @@ class TestVarint(unittest.TestCase):
     def tearDown(self):
         pass
 
-    # utility functions #############################################
-    def dump_buffer(self, buf):
-        for i in range(16):
-            print("0x%02x " % buf[i], end=' ')
-        print()
-
     # actual unit tests #############################################
     def test_length_as_varint(self):
+        """ Verify the length in bytes of various hex values is as expected."""
+
         len_ = length_as_varint
         self.assertEqual(1, len_(0))
         self.assertEqual(1, len_(0x7f))
@@ -76,14 +84,13 @@ class TestVarint(unittest.TestCase):
 
     def round_trip(self, nnn):
         """
-        this tests writing and reading a varint as the first and
-        only field in a buffer
+        Test writing and reading a varint as the first and
+        only field in a buffer.
         """
         # -- write varint -------------------------------------------
         field_nbr = 1 + self.rng.next_int16(1024)
         chan = Channel(LEN_BUFFER)
-        buf = chan.buffer
-        offset = write_varint_field(chan, nnn, field_nbr)
+        write_varint_field(chan, nnn, field_nbr)
         chan.flip()
 
         # -- read varint --------------------------------------------
@@ -103,6 +110,8 @@ class TestVarint(unittest.TestCase):
 
     def test_encode_decode(self):
         """
+        Test converting certain values to varint and back again.
+
         All varints are handled as 64 bit unsigned ints.  WE MAY SOMETIMES
         WANT TO RESTRICT THEM TO uint32s.  Other than 42, these are the
         usual border values.

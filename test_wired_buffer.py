@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
-
 # test_wire_buffer.py
+
+""" Test operations on the wire buffer. """
+
 import time
 import unittest
 
 from rnglib import SimpleRNG
-from fieldz.raw import(
+from wireops.raw import(
     next_power_of_two,
     WireBuffer,
 )
-# from fieldz.raw import *
+# from wireops.raw import *
 
 
-class TestWireBuffer (unittest.TestCase):
+class TestWireBuffer(unittest.TestCase):
+    """ Test operations on the wire buffer. """
 
     def setUp(self):
         self.rng = SimpleRNG(time.time())
@@ -23,13 +26,17 @@ class TestWireBuffer (unittest.TestCase):
     # actual unit tests #############################################
 
     def test_pow(self):
+        """ Test next_power_of_two function. """
         self.assertRaises(ValueError, next_power_of_two, -1)
         self.assertRaises(ValueError, next_power_of_two, 0)
         self.assertEqual(16, next_power_of_two(15))
         self.assertEqual(16, next_power_of_two(16))
 
     def test_wire_buffer(self):
-
+        """
+        Test operations on a wire buffer, verifying that resultant
+        properties are as expected.
+        """
         wb_ = WireBuffer(1023)
         self.assertEqual(1024, wb_.capacity)
         self.assertEqual(0, wb_.position)
@@ -47,6 +54,7 @@ class TestWireBuffer (unittest.TestCase):
         self.assertEqual(2 * 1024, wb_.capacity)
 
     def test_copy(self):
+        """ Check copying buffers, maing sure properties are the same. """
         wb_ = WireBuffer(4095)
         self.assertEqual(4096, wb_.capacity)
         wb_.position = 27

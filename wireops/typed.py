@@ -1,31 +1,22 @@
-# fieldz/typed.py
+# wireops/typed.py
+
+"""
+Operations on typed fields.
+
+Sets up tables holding put, get, and len functions for specific types.
+"""
 
 import ctypes
 import struct
 #import sys
 
-from fieldz.field_types import FieldTypes
+from wireops.field_types import FieldTypes
 
-#from fieldz.chan import Channel
-from fieldz.raw import(
-    # VARINT_TYPE,                            # PACKED_VARINT_TYPE,
-    #B32_TYPE, B64_TYPE, LEN_PLUS_TYPE,
-    # B128_TYPE, B160_TYPE, B256_TYPE,
-
-    # field_hdr,
-    field_hdr_len,
-    # read_field_hdr,
-    # hdr_field_nbr, hdr_type,
-    length_as_varint, write_varint_field,
-    read_raw_varint,  # write_raw_varint,
-    read_raw_b32, write_b32_field,
-    read_raw_b64, write_b64_field,
-    read_raw_len_plus, write_len_plus_field,
-    read_raw_b128, write_b128_field,
-    read_raw_b160, write_b160_field,
-    read_raw_b256, write_b256_field,
-    # next_power_of_two,
-    # WireBuffer,
+from wireops.raw import(
+    field_hdr_len, length_as_varint, write_varint_field, read_raw_varint,
+    read_raw_b32, write_b32_field, read_raw_b64, write_b64_field,
+    read_raw_len_plus, write_len_plus_field, read_raw_b128, write_b128_field,
+    read_raw_b160, write_b160_field, read_raw_b256, write_b256_field,
 )
 
 # MsgSpec cannot be imported
@@ -39,10 +30,10 @@ __all__ = [
 ]
 
 
-def encode_sint32(string):
-    ndx_ = ctypes.c_int32(0xffffffff & string).value
+def encode_sint32(value):
+    val = ctypes.c_int32(0xffffffff & value).value
     # we must have the sign filling in from the left
-    varint_ = (ndx_ << 1) ^ (ndx_ >> 31)
+    varint_ = (val << 1) ^ (val >> 31)
 #   # DEBUG
 #   print "\nencodeSint32: 0x%x --> 0x%x" % (s, v)
 #   # END
@@ -51,16 +42,16 @@ def encode_sint32(string):
 
 def decode_sint32(varint_):
     # decode zig-zag:  stackoverflow 2210923
-    ndx_ = (varint_ >> 1) ^ (-(varint_ & 1))
-    string = ctypes.c_int32(ndx_).value
+    val = (varint_ >> 1) ^ (-(varint_ & 1))
+    value = ctypes.c_int32(val).value
 #   # DEBUG
 #   print "decodeSint32: 0x%x --> 0x%x" % (v, s)
 #   # END
-    return string
+    return value
 
 
-def encode_sint64(string):
-    varint_ = ctypes.c_int64(0xffffffffffffffff & string).value
+def encode_sint64(value):
+    varint_ = ctypes.c_int64(0xffffffffffffffff & value).value
     # we must have the sign filling in from the left
     varint_ = (varint_ << 1) ^ (varint_ >> 63)
     return varint_
@@ -68,8 +59,8 @@ def encode_sint64(string):
 
 def decode_sint64(varint_):
     varint_ = (varint_ >> 1) ^ (-(varint_ & 1))
-    string = ctypes.c_int64(varint_).value
-    return string
+    value = ctypes.c_int64(varint_).value
+    return value
 
 # DISPATCH TABLES ===================================================
 
@@ -282,11 +273,11 @@ T_GET_FUNCS[FieldTypes.F_DOUBLE] = fdouble_get
 
 def lstring_get(chan):
     b_array = read_raw_len_plus(chan)
-    string = b_array.decode('utf-8')
+    value = b_array.decode('utf-8')
     # DEBUG
-    print("lStringGet '%s' => '%s'" % (b_array, string))
+    print("lStringGet '%s' => '%s'" % (b_array, value))
     # END
-    return string
+    return value
 T_GET_FUNCS[FieldTypes.L_STRING] = lstring_get
 
 
@@ -320,117 +311,122 @@ T_GET_FUNCS[FieldTypes.F_BYTES32] = fbytes32_get
 
 # LEN ===============================================================
 
-def vbool_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.V_BOOL)
-    return len_ + + 1        # header plus one for value
+def vbool_len(val, ndx):
+    h_len = field_hdr_len(ndx, FieldTypes.V_BOOL)
+    return h_len + 1        # header plus one for value
 T_LEN_FUNCS[FieldTypes.V_BOOL] = vbool_len
 
 # XXX This needs some thought
 
 
-def venum_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.V_ENUM)
+def venum_len(val, ndx):
+    h_len = field_hdr_len(ndx, FieldTypes.V_ENUM)
     # XXX we constrain val to this range of non-negative ints
-    return len_ + + length_as_varint(val & 0xffff)
+    return h_len + length_as_varint(val & 0xffff)
 T_LEN_FUNCS[FieldTypes.V_ENUM] = venum_len
 
 
-def vuint32_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.V_UINT32)
+def vuint32_len(val, ndx):
+    h_len = field_hdr_len(ndx, FieldTypes.V_UINT32)
     # XXX we constrain val to this range of non-negative ints
-    return len_ + + length_as_varint(val & 0xffffffff)
+    return h_len + length_as_varint(val & 0xffffffff)
 T_LEN_FUNCS[FieldTypes.V_UINT32] = vuint32_len
 
 
-def vsint32_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.V_SINT32)
-    return len_ + + length_as_varint(encode_sint32(val))
+def vsint32_len(val, ndx):
+    h_len = field_hdr_len(ndx, FieldTypes.V_SINT32)
+    return h_len + length_as_varint(encode_sint32(val))
 T_LEN_FUNCS[FieldTypes.V_SINT32] = vsint32_len
 
 
-def vuint64_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.V_UINT64)
+def vuint64_len(val, ndx):
+    h_len = field_hdr_len(ndx, FieldTypes.V_UINT64)
     # XXX we constrain val to this range of non-negative ints
-    return len_ + + length_as_varint(val & 0xffffffffffffffff)
+    return h_len + length_as_varint(val & 0xffffffffffffffff)
 T_LEN_FUNCS[FieldTypes.V_UINT64] = vuint64_len
 
 
-def vsint64_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.V_SINT64)
-    return len_ + + length_as_varint(encode_sint64(val))
+def vsint64_len(val, ndx):
+    h_len = field_hdr_len(ndx, FieldTypes.V_SINT64)
+    return h_len + length_as_varint(encode_sint64(val))
 T_LEN_FUNCS[FieldTypes.V_SINT64] = vsint64_len
 
 
-def fuint32_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.F_UINT32)
-    return len_ + + 4
+def fuint32_len(val, ndx):
+    h_len = field_hdr_len(ndx, FieldTypes.F_UINT32)
+    return h_len + 4
 T_LEN_FUNCS[FieldTypes.F_UINT32] = fuint32_len
 
 
-def fsint32_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.F_SINT32)
-    return len_ + + 4
+def fsint32_len(val, ndx):
+    h_len = field_hdr_len(ndx, FieldTypes.F_SINT32)
+    return h_len + 4
 T_LEN_FUNCS[FieldTypes.F_SINT32] = fsint32_len
 
 
-def ffloat_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.F_FLOAT)
-    return len_ + + 4
+def ffloat_len(val, ndx):
+    h_len = field_hdr_len(ndx, FieldTypes.F_FLOAT)
+    return h_len + 4
 T_LEN_FUNCS[FieldTypes.F_FLOAT] = ffloat_len
 
 
-def fuint64_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.F_UINT64)
-    return len_ + + 8
+def fuint64_len(val, ndx):
+    h_len = field_hdr_len(ndx, FieldTypes.F_UINT64)
+    return h_len + 8
 T_LEN_FUNCS[FieldTypes.F_UINT64] = fuint64_len
 
 
-def fsint64_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.F_SINT64)
-    return len_ + + 8
+def fsint64_len(val, ndx):
+    h_len = field_hdr_len(ndx, FieldTypes.F_SINT64)
+    return h_len + 8
 T_LEN_FUNCS[FieldTypes.F_SINT64] = fsint64_len
 
 
-def fdouble_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.F_DOUBLE)
-    return len_ + + 8
+def fdouble_len(val, ndx):
+    h_len = field_hdr_len(ndx, FieldTypes.F_DOUBLE)
+    return h_len + 8
 T_LEN_FUNCS[FieldTypes.F_DOUBLE] = fdouble_len
 
 
-def l_string_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.L_STRING)
-    ndx_ = len(val)
-    return len_ + + length_as_varint(ndx_) + ndx_
+def l_string_len(val, ndx):
+    h_len = field_hdr_len(ndx, FieldTypes.L_STRING)
+    v_len = len(val)
+    return h_len + length_as_varint(v_len) + v_len
 T_LEN_FUNCS[FieldTypes.L_STRING] = l_string_len
 
 
-def lbytes_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.L_BYTES)
-    ndx_ = len(val)
-    return len_ + + length_as_varint(ndx_) + ndx_
+def lbytes_len(val, ndx):
+    """ Return the length of an lbytes field, with ndx the field number. """
+    h_len = field_hdr_len(ndx, FieldTypes.L_BYTES)
+    v_len = len(val)
+    return h_len + length_as_varint(v_len) + v_len
 T_LEN_FUNCS[FieldTypes.L_BYTES] = lbytes_len
 
 
-def lmsg_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.L_MSG)
-    ndx_ = val.wire_len
-    return len_ + + length_as_varint(ndx_) + ndx_
+def lmsg_len(val, ndx):
+    """ Return the length of an lmsg field, with ndx the field number. """
+    h_len = field_hdr_len(ndx, FieldTypes.L_MSG)
+    v_len = val.wire_len
+    return h_len + length_as_varint(v_len) + v_len
 T_LEN_FUNCS[FieldTypes.L_MSG] = lmsg_len
 
 
-def fbytes16_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.F_BYTES16)
-    return len_ + + 16
+def fbytes16_len(val, ndx):
+    """ Return the length of an fbytes16 field, with ndx the field number. """
+    h_len = field_hdr_len(ndx, FieldTypes.F_BYTES16)
+    return h_len + 16
 T_LEN_FUNCS[FieldTypes.F_BYTES16] = fbytes16_len
 
 
-def fbytes20_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.F_BYTES20)
-    return len_ + + 20
+def fbytes20_len(val, ndx):
+    """ Return the length of an fbytes20 field, with ndx the field number. """
+    h_len = field_hdr_len(ndx, FieldTypes.F_BYTES20)
+    return h_len + 20
 T_LEN_FUNCS[FieldTypes.F_BYTES20] = fbytes20_len
 
 
-def fbytes32_len(val, nnn):
-    len_ = field_hdr_len(nnn, FieldTypes.F_BYTES32)
-    return len_ + + 32
+def fbytes32_len(val, ndx):
+    """ Return the length of an fbytes32 field, with ndx the field number. """
+    h_len = field_hdr_len(ndx, FieldTypes.F_BYTES32)
+    return h_len + 32
 T_LEN_FUNCS[FieldTypes.F_BYTES32] = fbytes32_len

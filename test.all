@@ -7,7 +7,6 @@ then
   ./test_field_types.py
   ./test_fixed_len.py
   ./test_len_plus.py
-  ./test_tfwriter.py
   ./test_typed_fields.py
   ./test_varint.py
   ./test_wired_buffer.py

@@ -1,8 +1,7 @@
-pylint setup.py big_test.py little_big_test.py wireopsSpecc  \
+pylint setup.py                 \
     wireops/chan.py                \
     wireops/field_types.py                \
     wireops/raw.py                \
-    wireops/tfbuffer.py                \
     wireops/typed.py                \
     wireops/__init__.py                  \
     test*.py
