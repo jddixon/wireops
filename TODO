@@ -1,0 +1,22 @@
+# $DEV_BASE/py/wireops/TODO
+
+2017-01-23
+    * FIX wireops/raw.py :: field_hdr_len(ndx, ftype), which
+        ** incorrectly ** calculates the length of a field header
+        given its field type: it needs to map this into a primitive
+        type and determine the length tiven that
+
+2017-01-21
+    * convert wireops FieldTypes to a simple Enum so that eg
+        V_BOOL.value is 'vBool'
+        - the FieldStr class and its as_str method disappear
+2016-12-16
+    * more pylinting necessary
+    * review tests
+    * review gh-pages
+        - connect channels.html to index.html 
+2016-12-15
+    * confirm all tests succeed                                         * DONE
+    * eliminate chatter in test runs
+    * test_tf_writer.py remains in fieldz project                       * DONE
+    * likewise for tfbuffer.py                                          * DONE
