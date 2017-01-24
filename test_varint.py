@@ -9,24 +9,12 @@ import unittest
 from rnglib import SimpleRNG
 # from wireops.raw import *
 
-from wireops.raw import(
-    VARINT_TYPE,                            # PACKED_VARINT_TYPE,
-    #B32_TYPE, B64_TYPE, LEN_PLUS_TYPE,
-    #B128_TYPE, B160_TYPE, B256_TYPE,
+from wireops.enum import PrimTypes
 
-    # field_hdr, field_hdr_len,
+from wireops.raw import(
     read_field_hdr,
-    # hdr_field_nbr, hdr_type,
     length_as_varint, write_varint_field,
-    read_raw_varint,  # write_raw_varint,
-    # read_raw_b32,           # write_b32_field,
-    # read_raw_b64,           # write_b64_field,
-    # read_raw_len_plus,      # write_len_plus_field,
-    # read_raw_b128,          # write_b128_field,
-    # read_raw_b160,          # write_b160_field,
-    # read_raw_b256,          # write_b256_field,
-    # next_power_of_two,
-    # WireBuffer,
+    read_raw_varint,
 )
 from wireops.chan import Channel
 
@@ -97,7 +85,7 @@ class TestVarint(unittest.TestCase):
         # first the header (which is a varint) ------------
         (prim_type, field_nbr2) = read_field_hdr(chan)
         offset2 = chan.position
-        self.assertEqual(VARINT_TYPE, prim_type)
+        self.assertEqual(PrimTypes.VARINT, prim_type)
         self.assertEqual(field_nbr, field_nbr2)
         self.assertEqual(length_as_varint(field_nbr << 3), offset2)
 

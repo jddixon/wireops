@@ -7,29 +7,30 @@ Giaje1YAJPNVBt3dlOA5lhBp4GpSYBskJ9UR2Zyt3lgAGK3dEwxYETLMh9VWEV8i
 k2lyCIE/V/CDb9eVDYQgYSJYrnQ/JAPST7NbcY8aI+/0l7QVBhLBpmOCvmS6ofvz
 /QIDAQAB
 -----END PUBLIC KEY-----
-wireops v0.1.2
-2016-12-16 21:42:36
+wireops v0.1.3
+2017-01-24 02:38:50
 # BEGIN CONTENT #
 wireops
  .dvcz
-  builds 37e718463e1d9acf4922d986b1dfefa513e7c9dc
+  builds 926fbbfb549954a6d17635f25117e52af4bdaf57
   copyright 6794cf665112656267cf59917bdfc150e4c4b97c
-  lastBuildList 8a404c462eda9f6e05054e32da07024149dc9861
+  lastBuildList 6ea03463308023d39fd51ae694d441f70cdac4be
   license 62eb0db178518a8376b23676c2639eb2732c0be8
   projCfg a6f8bb11b6450614513ea2a3637da3e91e8518f4
   projCfg.local 85a2893ae5f2ff476c6e3bdb479d0b02b45cc3ec
-  version f7b4a03fb6538d96dce17cc482e826532d2708d6
+  version bf0d97ac116a35add2153748134e9cc5d5b35cc6
  .gitignore b2cc5fa149056ba0a01449dcdb19409728483a5c
- CHANGES 959e53d998e2980ad5d3d749b94ee53fc1d3e7d7
+ CHANGES f1ebefe87a9c4657bf858abd4a23e9f00fde1a3e
  LICENSE-APACHE-2.0.md 0778fc187f01fb9c7dc7c6a90be255f5e8d846e6
  README.md 00c43a0dcdc2da7072ec916b39a8f11551a663a0
- TODO 595abd34a92e2da578e2631148a24ae3f373c8be
+ TODO 6dd9532db7fedae15c5bc0c390e78435e71b25ca
  bkp2U 7582955b38695ce1b3756b618fd2f8ebd9f7c9b7
  checkCoverage 97164935fe5b04756e7381e31d62349b0290ebdd
  countem ce5f939f4a24a402030cc5777842e214a1f1fdc6
  dist
   wireops-0.1.1.tar.gz 321eb8e673b54aa42c17045e308e04b7d433f7cb
   wireops-0.1.2.tar.gz 8b896990517623d04298a389655376d4402e80f2
+  wireops-0.1.3.tar.gz 0d6cee4aa8c3f7f44382c245a3d156f968c41406
  doPyLint 7e583d91e680fc079890fef7cb3060dfb0f16f22
  ghpDoc
   channels.md c3055b56a7fbc954c1244b4d18d6e84931a4c7e8
@@ -38,19 +39,18 @@ wireops
  setup.py 5a1f3e44089688228d67d55bab3d9de579270656
  styleit 793c0b57204d2c1ddf13368929aa995f9f15a645
  test.all fc91e973a721e53602179c498ae289cb36aed0f7
- test_field_types.py f3d2bed93f199218f87e9b93b993cc35d38dea49
- test_fixed_len.py 3176f05bbc69e741a0f29cbbb8312b71466b44f5
- test_len_plus.py 1d503d044202175c641eea2ade9391c6368ba40b
- test_typed_fields.py 1d13d50fa737136740b34c823c42bfdfa96807ce
- test_varint.py 9fe56ab507d55c5c0026a7725a6fe70694652b6f
+ test_field_types.py 0fb9fd0cf739ecc78088d7217cc4fffd61f50711
+ test_fixed_len.py c5c4af9c4a3203fa27c13ab21be5bef623b773f0
+ test_len_plus.py 6c813a93a3be8079291bd25afbd3a9543ef257bb
+ test_varint.py 8f13b9f91fb32922275438af4bb88265ca5f5d06
  test_wired_buffer.py 56816ae15ae80f40c0e41ab4d5c573ba7a5c52b2
  test_zigzag.py 820fce714517c4139f275575a18b04cf3ad08d7b
  wireops
-  __init__.py a8955deb0c59f49cba1baab3c29822b667c3a567
+  __init__.py 6c82f5e42c1231403a45a8ebe48f49c3e11b42cc
   chan.py 3b9d5836f7439ae6d542db0faeb327239db207d3
-  field_types.py 712f271ba61d1d9cf4082fbc9b9288150454c595
-  raw.py ac094b7f5a5beba16382df1186b4141e5e881f00
-  typed.py 04bb4fe7572292d876d8ef1bb9a29d22b6499661
+  enum.py d23c207fc3ad0547dab95b0b52670da8403e2336
+  raw.py 1a0a04a5f2fc349ffdcd1cb1d25f6ec6fdc0c4a8
+  typed.py e66b8eda458bf8a767bae0fc1b2b62cbfbdc703c
 # END CONTENT #
 
-OZVNYvl4SM6+7dE7MLL3sBFJ2qjDzXs2R2n24mA2uByp5oEhKzK4LHt3IEVM5kXCvMKcVojh+H+iboItksbWCO05cvxP+dBHpK4ZYijOmQs7/58KFtwEvcQIevLb7XXmhG0wiHB3MutGAULWNC1EcDkMR1WJD4XgGnan5DWJ7hgmzWdXbNaX4gYybI5Y1sHiQQAsViFIIQ4jsZcVRcxdLm7PinwgYRbTVir2ry5xcnqq8yqYkJGhZS/EZjPbdHpm2kQXFKJWBQROV8hOa38kBmY1mg9oz7jrRAqfvqPACVkzTOLjMaE6uVMLZWgY94iDDibluy7sjcsTyuq/aYj6+A==
+QWaSFTOe6TMuHqIMR/7/flp7qTlB+mTeBrOWV94AEjfDlpwifnTqVL9dVrpJ8/4DFoAp0EqC35QRUScflnuqc3lUQ81nm3XGP5PfuZ9zfRT838QG2AxXR0uCt4Tc6yhOHGeMLgixF3MODnQt7c1OwNcU2So1Xj+chNVe5kT8somJlsRcl/pWaGrgLuYwB8Sfhl1k4RJ7my4UCdXiZ12yifJ4kkwR2kEMyDBD1QoV4XOKBS0VqXXgv8WXfWeqqKqzupGpu7V0al42cMMLrkJhgi2p0p6OmG2ZlKhi1HCYMt1TtZZkKx5p4qPO9bCs5A2T0S/ljF0b0FVagV75LfpWgw==

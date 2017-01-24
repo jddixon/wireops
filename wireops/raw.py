@@ -4,18 +4,14 @@
 Functions supporting the low-level manipulation of fields on the wire.
 """
 import ctypes
-from wireops.field_types import FieldTypes
+from wireops.enum import FieldTypes, ftype_by_val, PrimTypes
 
 # for debugging
 #import binascii
 
 __all__ = [
-    'VARINT_TYPE', 'PACKED_VARINT_TYPE',
-    'B32_TYPE', 'B64_TYPE', 'LEN_PLUS_TYPE',
-    'B128_TYPE', 'B160_TYPE', 'B256_TYPE',
-
-    'field_hdr', 'read_field_hdr', 'field_hdr_len',
-    'hdr_field_nbr', 'hdr_type',
+    'field_hdr_val', 'read_field_hdr', 'field_hdr_len',
+    'hdr_field_nbr', 'hdr_ptype',
     'length_as_varint', 'write_varint_field',
     'read_raw_varint', 'write_raw_varint',
     'read_raw_b32', 'write_b32_field',
@@ -30,37 +26,32 @@ __all__ = [
     'WireBuffer',
 ]
 
-# these are PRIMITIVE types, which determine the number of bytes
-# occupied in the buffer; they are NOT data types
-VARINT_TYPE = 0  # variable length integer
-PACKED_VARINT_TYPE = 1  # variable length integer
-B32_TYPE = 2  # fixed length, 32 bits
-B64_TYPE = 3  # fixed length, 64 bits
-LEN_PLUS_TYPE = 4  # sequence of bytes preceded by a varint length
-B128_TYPE = 5  # fixed length, 128 bits (AES IV length)
-B160_TYPE = 6  # fixed length, 160 bits (SHA1 content key)
-B256_TYPE = 7  # fixed length, 128 bits (SHA3 content key)
-
 # FIELD HEADERS #####################################################
 
 
-def field_hdr(ndx, type_):
+def field_hdr_val(ndx, ptype):
     """
-    Given the field number and type, return the value of the header.
+    Given the field number and its primitive type, return the value of
+    the header.
+
+    Primitive types include PrimTypes.VARINT, PrimTypes.PACKED_VARINT, etc.
 
     It would be prudent but slower to validate the parameters.
     """
     # DEBUG
     #   print "ndx = %u, t = %u, header is 0x%x" % (n, t, (n << 3) | t)
     # END
-    return (ndx << 3) | type_
+    return (ndx << 3) | ptype
 
 
-def field_hdr_len(ndx, type_):
+def field_hdr_len(ndx, ftype):
     """
-    Return the length of a header, given the field number ndx and its type.
+    Return the length of a header, given the field number ndx and its
+    field type.
+
+    The 'type' is FieldType.value[0].
     """
-    return length_as_varint(field_hdr(ndx, type_))
+    return length_as_varint(field_hdr_val(ndx, ftype))
 
 
 def hdr_field_nbr(header):
@@ -68,8 +59,12 @@ def hdr_field_nbr(header):
     return header >> 3
 
 
-def hdr_type(header):
-    """ Given a header exract and return the header type."""
+def hdr_ptype(header):
+    """
+    Given a header exract and return the primitive header type.
+
+    Here the 'type' is the index of the field type in FieldTypes.
+    """
     return header & 7
 
 
@@ -77,9 +72,9 @@ def read_field_hdr(chan):
     """ Return a field header (index plus primitive type) from a channel."""
 
     hdr = read_raw_varint(chan)
-    p_type = hdr_type(hdr)      # this is the primitive field type
+    ptype = hdr_ptype(hdr)      # this is the primitive field type
     field_nbr = hdr_field_nbr(hdr)
-    return (p_type, field_nbr)
+    return (ptype, field_nbr)
 
 # VARINTS ###########################################################
 
@@ -167,9 +162,9 @@ def write_varint_field(chan, varint_, nnn):
     """
     Write a header followed by a varint to a channel.
 
-    The header is the field number << 3 ORed with 0, VARINT_TYPE.
+    The header is the field number << 3 ORed with 0, PrimTypes.VARINT.
     """
-    hdr = field_hdr(nnn, VARINT_TYPE)
+    hdr = field_hdr_val(nnn, PrimTypes.VARINT)
     write_raw_varint(chan, hdr)
 #   # DEBUG
 #   print "header was 0x%x; writing value 0x%x at offset %u" % (
@@ -221,7 +216,7 @@ def write_raw_b32(chan, value):
 
 def write_b32_field(chan, value, ndx):
     """ Write a header followed by a 4-byte value to a channel. """
-    hdr = field_hdr(ndx, B32_TYPE)
+    hdr = field_hdr_val(ndx, PrimTypes.B32)
     write_raw_varint(chan, hdr)
     write_raw_b32(chan, value)
 
@@ -288,7 +283,7 @@ def write_raw_b64(chan, value):
 
 def write_b64_field(chan, value, ndx):
     """ Write a header and an 8-byte value to a channel. """
-    hdr = field_hdr(ndx, B64_TYPE)
+    hdr = field_hdr_val(ndx, PrimTypes.B64)
     write_raw_varint(chan, hdr)
     write_raw_b64(chan, value)
 
@@ -341,7 +336,7 @@ def write_raw_bytes(chan, bytes_):
 
 def write_field_hdr(chan, field_nbr, prim_type):
     """ Write the field header for a primitive type. """
-    hdr = field_hdr(field_nbr, prim_type)
+    hdr = field_hdr_val(field_nbr, prim_type)
     write_raw_varint(chan, hdr)
 
 
@@ -351,7 +346,7 @@ def write_len_plus_field(chan, string, ndx):
 
     s is a bytearray or string.
     """
-    write_field_hdr(chan, ndx, LEN_PLUS_TYPE)
+    write_field_hdr_val(chan, ndx, PrimTypes.LEN_PLUS)
     # write the length of the byte array --------
     write_raw_varint(chan, len(string))
 
@@ -395,7 +390,7 @@ def write_raw_b128(chan, value):
 
 def write_b128_field(chan, value, ndx):
     """ Write a header and 16-byte value to a channel.  """
-    hdr = field_hdr(ndx, B128_TYPE)
+    hdr = field_hdr_val(ndx, PrimTypes.B128)
     write_raw_varint(chan, hdr)
     write_raw_b128(chan, value)                  # GEEP
 
@@ -433,7 +428,7 @@ def write_raw_b160(chan, value):
 
 def write_b160_field(chan, value, ndx):
     """ Write a header and 20-byte value to this ndx. """
-    hdr = field_hdr(ndx, B160_TYPE)
+    hdr = field_hdr_val(ndx, PrimTypes.B160)
     write_raw_varint(chan, hdr)
     write_raw_b160(chan, value)                  # GEEP
 
@@ -467,7 +462,7 @@ def write_raw_b256(chan, value):
 
 def write_b256_field(chan, value, ndx):
     """ Write a 32-byte value to a channel. """
-    hdr = field_hdr(ndx, B256_TYPE)
+    hdr = field_hdr_val(ndx, PrimTypes.B256)
     write_raw_varint(chan, hdr)
     write_raw_b256(chan, value)
 
