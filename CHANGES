@@ -1,6 +1,10 @@
 ~/dev/py/wireops/CHANGES
 
 
+v0.2.0
+    2017-01-26
+        * all tests succeed
+        * FieldTypes and PrimTypes now simple Python3 enumerations  SLOC 1542
 v0.1.3
     2017-01-23
         * rearrange code to make tests fail                         SLOC 1541
@@ -15,6 +19,7 @@ v0.1.1
 v0.1.0
     2016-12-15
         * initial commit: split from fieldz
+
 
 
 

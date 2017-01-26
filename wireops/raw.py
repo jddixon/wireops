@@ -3,8 +3,9 @@
 """
 Functions supporting the low-level manipulation of fields on the wire.
 """
-import ctypes
-from wireops.enum import FieldTypes, ftype_by_val, PrimTypes
+import ctypes       # XXX
+from wireops import WireopsError
+from wireops.enum import FieldTypes, PrimTypes
 
 # for debugging
 #import binascii
@@ -41,7 +42,7 @@ def field_hdr_val(ndx, ptype):
     # DEBUG
     #   print "ndx = %u, t = %u, header is 0x%x" % (n, t, (n << 3) | t)
     # END
-    return (ndx << 3) | ptype
+    return (ndx << 3) | ptype.value
 
 
 def field_hdr_len(ndx, ftype):
@@ -50,8 +51,32 @@ def field_hdr_len(ndx, ftype):
     field type.
 
     The 'type' is FieldType.value[0].
+
+    XXX THE NEXT CALCULATION IS AN ERROR.  There are currently 8 PrimTypes
+    but 18 FieldTypes.
     """
-    return length_as_varint(field_hdr_val(ndx, ftype))
+    fndx = ftype.value[0]
+    # pylint is a bit thick
+    # pylint: disable=unsubscriptable-object
+    # pylint: disable=redefined-variable-type
+    if fndx < FieldTypes.F_UINT32.value[0]:
+        ptype = PrimTypes.VARINT
+    elif fndx < FieldTypes.F_UINT64.value[0]:
+        ptype = PrimTypes.B32
+    elif fndx < FieldTypes.L_STRING.value[0]:
+        ptype = PrimTypes.B64
+    elif fndx < FieldTypes.F_BYTES16.value[0]:
+        ptype = PrimTypes.LEN_PLUS
+    elif fndx == FieldTypes.F_BYTES16.value[0]:
+        ptype = PrimTypes.B128
+    elif fndx == FieldTypes.F_BYTES20.value[0]:
+        ptype = PrimTypes.B160
+    elif fndx == FieldTypes.F_BYTES32.value[0]:
+        ptype = PrimTypes.B256
+    else:
+        raise WireopsError("FieldType has invalid index %d" % fndx)
+
+    return length_as_varint(field_hdr_val(ndx, ptype))
 
 
 def hdr_field_nbr(header):
@@ -320,14 +345,14 @@ def write_raw_bytes(chan, bytes_):
     # XXX CHECK LEN OFFSET
 
     # DEBUG
-    print("writeRawBytes: type(bytes) is ", type(bytes_))
+    # print("writeRawBytes: type(bytes) is ", type(bytes_))
     # END
 
     for b_val in bytes_:
         buf[offset] = int(b_val)
         offset += 1
 #   # DEBUG
-    print("wrote '%s' as %u raw bytes" % (str(bytes_), len(bytes_)))
+#   print("wrote '%s' as %u raw bytes" % (str(bytes_), len(bytes_)))
 #   # END
     chan.position = offset
 
@@ -346,7 +371,7 @@ def write_len_plus_field(chan, string, ndx):
 
     s is a bytearray or string.
     """
-    write_field_hdr_val(chan, ndx, PrimTypes.LEN_PLUS)
+    write_field_hdr(chan, ndx, PrimTypes.LEN_PLUS)
     # write the length of the byte array --------
     write_raw_varint(chan, len(string))
 
@@ -469,21 +494,21 @@ def write_b256_field(chan, value, ndx):
 # PRIMITIVE FIELD NAMES =============================================
 
 
-class PrimFields(object):
-    """ lower-level primitive field types """
+# class PrimFields(object):
+#   """ lower-level primitive field types """
 
-    _P_VARINT = 0
-    _P_B32 = 1     # 32 bit fields
-    _P_B64 = 2     # 64 bit fields
-    _P_LEN_PLUS = 3     # varint len followed by that many bytes
-    # the following can be implemented in terms of _P_LEN_PLUS
-    _P_B128 = 4    # fixed length string of 16 bytes
-    _P_B160 = 5    # fixed length string of 20 bytes
-    _P_B256 = 6    # fixed length string of 32 bytes
+#   _P_VARINT = 0
+#   _P_B32 = 1     # 32 bit fields
+#   _P_B64 = 2     # 64 bit fields
+#   _P_LEN_PLUS = 3     # varint len followed by that many bytes
+#   # the following can be implemented in terms of _P_LEN_PLUS
+#   _P_B128 = 4    # fixed length string of 16 bytes
+#   _P_B160 = 5    # fixed length string of 20 bytes
+#   _P_B256 = 6    # fixed length string of 32 bytes
 
-    _MAX_TYPE = _P_B256
+#   _MAX_TYPE = _P_B256
 
-    # none of these (pVarint..pB256) is currently used
+#   # none of these (pVarint..pB256) is currently used
 #   @property
 #   def pVarint(clz):       return clz._P_VARINT
 #   @property
@@ -499,21 +524,21 @@ class PrimFields(object):
 #   @property
 #   def pB256(clz):         return clz._P_B256
 
-    _names = {}
-    _names[_P_VARINT] = 'pVarint'
-    _names[_P_B32] = 'pB32'
-    _names[_P_B64] = 'pB64'
-    _names[_P_LEN_PLUS] = 'pLenPlus'
-    _names[_P_B128] = 'pB128'
-    _names[_P_B160] = 'pB160'
-    _names[_P_B256] = 'pB256'
+#   _names = {}
+#   _names[_P_VARINT] = 'pVarint'
+#   _names[_P_B32] = 'pB32'
+#   _names[_P_B64] = 'pB64'
+#   _names[_P_LEN_PLUS] = 'pLenPlus'
+#   _names[_P_B128] = 'pB128'
+#   _names[_P_B160] = 'pB160'
+#   _names[_P_B256] = 'pB256'
 
-    @classmethod
-    def name(cls, ndx):
-        """ Return the name of the primitive type with this index. """
-        if ndx is None or ndx < 0 or FieldTypes.MAX_NDX < ndx:
-            raise ValueError('no such field type: %s' + str(ndx))
-        return cls._names[ndx]
+#   @classmethod
+#   def name(cls, ndx):
+#       """ Return the name of the primitive type with this index. """
+#       if ndx is None or ndx < 0 or FieldTypes.MAX_NDX < ndx:
+#           raise ValueError('no such field type: %s' + str(ndx))
+#       return cls._names[ndx]
 
 # -- WireBuffer -----------------------------------------------------
 
@@ -533,7 +558,7 @@ def next_power_of_two(nnn):
     nnn = (nnn >> 8) | nnn
     nnn = (nnn >> 16) | nnn
 
-    # XXX added 2016-12-15
+    # added 2016-12-15
     nnn = (nnn >> 32) | nnn
     # XXX RAISE if nnn > 2^32
     return nnn + 1

@@ -1,4 +1,4 @@
-# wireops
+<h1 class="libTop">wireops</h1>
 
 **fieldz** is a Python3 implementation of a protocol meant to be
 generally compatible with Google's
@@ -129,7 +129,3 @@ followed by zero or more enum and/or message declarations.
 
 Pre-alpha.  Code and unit tests exist, but some tests fail.
 
-## On-line Documentation
-
-More information on the **wireops** project can be found
-[here](https://jddixon.github.io/wireops)

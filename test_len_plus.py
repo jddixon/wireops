@@ -10,7 +10,7 @@ from rnglib import SimpleRNG
 from wireops.chan import Channel
 from wireops.enum import PrimTypes
 from wireops.raw import(
-    field_hdr, read_field_hdr, length_as_varint,
+    field_hdr_val, read_field_hdr, length_as_varint,
     read_raw_len_plus, write_len_plus_field,)
 
 LEN_BUFF = 1024
@@ -61,7 +61,7 @@ class TestLenPlus(unittest.TestCase):
         offset2 = chan.position
         self.assertEqual(PrimTypes.LEN_PLUS, field_type)
         self.assertEqual(field_nbr, field_nbr2)
-        self.assertEqual(length_as_varint(field_hdr(field_nbr, PrimTypes.LEN_PLUS)),
+        self.assertEqual(length_as_varint(field_hdr_val(field_nbr, PrimTypes.LEN_PLUS)),
                          offset2)
 
         # then the actual value written -------------------
