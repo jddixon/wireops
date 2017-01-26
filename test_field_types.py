@@ -30,6 +30,8 @@ class TestFieldTypes(unittest.TestCase):
         string and integer forms works as expected.
         """
         self.assertEqual(len(FieldTypes), 18)
+
+        # pylint: disable=unsubscriptable-object
         self.assertEqual(FieldTypes.V_BOOL.value[0], 0)
         self.assertEqual(FieldTypes.V_BOOL.value[1], 'vbool')
 

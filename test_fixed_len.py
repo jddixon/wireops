@@ -13,7 +13,7 @@ from rnglib import SimpleRNG
 from wireops.chan import Channel
 from wireops.enum import PrimTypes
 from wireops.raw import(
-    field_hdr, read_field_hdr, length_as_varint,
+    field_hdr_val, read_field_hdr, length_as_varint,
     read_raw_b32, write_b32_field, read_raw_b64, write_b64_field,)
 
 LEN_BUFF = 1024
@@ -49,8 +49,8 @@ class TestFixedLen(unittest.TestCase):
         offset2 = chan.position
         self.assertEqual(PrimTypes.B32, field_type)
         self.assertEqual(field_nbr, field_nbr2)
-        self.assertEqual(length_as_varint(field_hdr(field_nbr, PrimTypes.B32)),
-                         offset2)
+        self.assertEqual(length_as_varint(field_hdr_val(
+            field_nbr, PrimTypes.B32)), offset2)
 
         # then the varint proper --------------------------
         varint_ = read_raw_b32(chan)
@@ -82,8 +82,8 @@ class TestFixedLen(unittest.TestCase):
         offset2 = chan.position
         self.assertEqual(PrimTypes.B64, field_type)
         self.assertEqual(field_nbr, field_nbr2)
-        self.assertEqual(length_as_varint(field_hdr(field_nbr, PrimTypes.B64)),
-                         offset2)
+        self.assertEqual(length_as_varint(field_hdr_val(
+            field_nbr, PrimTypes.B64)), offset2)
 
         # then the varint proper --------------------------
         varint_ = read_raw_b64(chan)

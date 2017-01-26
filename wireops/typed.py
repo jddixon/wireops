@@ -29,6 +29,7 @@ __all__ = [
 
 
 def encode_sint32(value):
+    """ Encode a signed int32. """
     val = ctypes.c_int32(0xffffffff & value).value
     # we must have the sign filling in from the left
     varint_ = (val << 1) ^ (val >> 31)
@@ -39,7 +40,7 @@ def encode_sint32(value):
 
 
 def decode_sint32(varint_):
-    # decode zig-zag:  stackoverflow 2210923
+    """ Decode zig-zag:  stackoverflow 2210923. """
     val = (varint_ >> 1) ^ (-(varint_ & 1))
     value = ctypes.c_int32(val).value
 #   # DEBUG
@@ -49,6 +50,7 @@ def decode_sint32(varint_):
 
 
 def encode_sint64(value):
+    """ Encode a signed int64. """
     varint_ = ctypes.c_int64(0xffffffffffffffff & value).value
     # we must have the sign filling in from the left
     varint_ = (varint_ << 1) ^ (varint_ >> 63)
@@ -56,6 +58,7 @@ def encode_sint64(value):
 
 
 def decode_sint64(varint_):
+    """ Decode a signed int64. """
     varint_ = (varint_ >> 1) ^ (-(varint_ & 1))
     value = ctypes.c_int64(varint_).value
     return value
@@ -66,11 +69,11 @@ def decode_sint64(varint_):
 def not_impl(*arg):
     raise NotImplementedError
 
-_nbr_field_types = len(FieldTypes)
+_NBR_FIELD_TYPES = len(FieldTypes)
 
-T_PUT_FUNCS = [not_impl] * _nbr_field_types
-T_GET_FUNCS = [not_impl] * _nbr_field_types
-T_LEN_FUNCS = [not_impl] * _nbr_field_types
+T_PUT_FUNCS = [not_impl] * _NBR_FIELD_TYPES
+T_GET_FUNCS = [not_impl] * _NBR_FIELD_TYPES
+T_LEN_FUNCS = [not_impl] * _NBR_FIELD_TYPES
 
 # puts implemented using varInts --------------------------
 
@@ -80,6 +83,7 @@ def vbool_put(chan, val, nnn):
         write_varint_field(chan, 1, nnn)
     else:
         write_varint_field(chan, 0, nnn)
+# pylint: disable=unsubscriptable-object
 T_PUT_FUNCS[FieldTypes.V_BOOL.value[0]] = vbool_put
 
 
@@ -156,8 +160,7 @@ def fdouble_put(chan, val, nnn):
     v_rep = struct.pack('@d', val)       # this gives us an 8-byte string
     varint_ = struct.unpack('@L', v_rep)[0]
     write_b64_field(chan, varint_, nnn)
-T_PUT_FUNCS[FieldTypes.F_DOUBLE.value[0]
-            ] = fdouble_put                        # END B64
+T_PUT_FUNCS[FieldTypes.F_DOUBLE.value[0]] = fdouble_put  # END B64
 
 
 def l_string_put(chan, val, nnn):
@@ -189,8 +192,7 @@ T_PUT_FUNCS[FieldTypes.F_BYTES20.value[0]] = fbytes20_put
 
 def fbytes32_put(chan, val, nnn):
     return write_b256_field(chan, val, nnn)
-T_PUT_FUNCS[FieldTypes.F_BYTES32.value[0]
-            ] = fbytes32_put                # END B256
+T_PUT_FUNCS[FieldTypes.F_BYTES32.value[0]] = fbytes32_put  # END B256
 
 # GETS ==============================================================
 

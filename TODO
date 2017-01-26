@@ -1,15 +1,18 @@
 # $DEV_BASE/py/wireops/TODO
 
-2017-01-23
-    * FIX wireops/raw.py :: field_hdr_len(ndx, ftype), which
-        ** incorrectly ** calculates the length of a field header
-        given its field type: it needs to map this into a primitive
-        type and determine the length tiven that
+2017-01-26
+    * field_hdr_len(ftype) calculation should be table driven  
 
-2017-01-21
-    * convert wireops FieldTypes to a simple Enum so that eg
-        V_BOOL.value is 'vBool'
-        - the FieldStr class and its as_str method disappear
+2017-01-26, edited from -21
+    * convert wireops FieldTypes to a simple Enum so that eg            * DONE
+        V_BOOL.value[1] is 'vbool'                                      * DONE
+        - the FieldStr class and its as_str method disappear            * DONE
+2017-01-23
+    * FIX wireops/raw.py :: field_hdr_len(ndx, ftype), which            * DONE
+        ** incorrectly ** calculates the length of a field header       * DONE
+        given its field type: it needs to map this into a primitive     * DONE
+        type and determine the length tiven that                        * DONE
+
 2016-12-16
     * more pylinting necessary
     * review tests
