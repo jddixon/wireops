@@ -24,6 +24,16 @@ class TestFieldTypes(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_new_fieldtypes(self):
+        """
+        Test the new definition of FieldTypes introduced 2017-01-30.
+        """
+        self.assertEqual(len(FieldTypes), FieldTypes.F_BYTES32.value + 1)
+        for ndx, _ in enumerate(FieldTypes):
+            self.assertEqual(_.value, ndx)
+            # round trip member to sym and back to member
+            self.assertEqual(FieldTypes.from_sym(_.sym), _)
+
     def test_constants(self):
         """
         Verify that our constants are immutable and conversion between
@@ -32,11 +42,11 @@ class TestFieldTypes(unittest.TestCase):
         self.assertEqual(len(FieldTypes), 18)
 
         # pylint: disable=unsubscriptable-object
-        self.assertEqual(FieldTypes.V_BOOL.value[0], 0)
-        self.assertEqual(FieldTypes.V_BOOL.value[1], 'vbool')
+        self.assertEqual(FieldTypes.V_BOOL.value, 0)
+        self.assertEqual(FieldTypes.V_BOOL.sym, 'vbool')
 
-        self.assertEqual(FieldTypes.F_BYTES32.value[0], len(FieldTypes) - 1)
-        self.assertEqual(FieldTypes.F_BYTES32.value[1], 'fbytes32')
+        self.assertEqual(FieldTypes.F_BYTES32.value, len(FieldTypes) - 1)
+        self.assertEqual(FieldTypes.F_BYTES32.sym, 'fbytes32')
 
     def test_len_funcs(self):
         """
