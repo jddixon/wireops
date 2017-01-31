@@ -50,28 +50,28 @@ def field_hdr_len(ndx, ftype):
     Return the length of a header, given the field number ndx and its
     field type.
 
-    The 'type' is FieldType.value[0].
+    The 'type' is FieldType.value.
 
     XXX THE NEXT CALCULATION IS AN ERROR.  There are currently 8 PrimTypes
     but 18 FieldTypes.
     """
-    fndx = ftype.value[0]
+    fndx = ftype.value
     # pylint is a bit thick
     # pylint: disable=unsubscriptable-object
     # pylint: disable=redefined-variable-type
-    if fndx < FieldTypes.F_UINT32.value[0]:
+    if fndx < FieldTypes.F_UINT32.value:
         ptype = PrimTypes.VARINT
-    elif fndx < FieldTypes.F_UINT64.value[0]:
+    elif fndx < FieldTypes.F_UINT64.value:
         ptype = PrimTypes.B32
-    elif fndx < FieldTypes.L_STRING.value[0]:
+    elif fndx < FieldTypes.L_STRING.value:
         ptype = PrimTypes.B64
-    elif fndx < FieldTypes.F_BYTES16.value[0]:
+    elif fndx < FieldTypes.F_BYTES16.value:
         ptype = PrimTypes.LEN_PLUS
-    elif fndx == FieldTypes.F_BYTES16.value[0]:
+    elif fndx == FieldTypes.F_BYTES16.value:
         ptype = PrimTypes.B128
-    elif fndx == FieldTypes.F_BYTES20.value[0]:
+    elif fndx == FieldTypes.F_BYTES20.value:
         ptype = PrimTypes.B160
-    elif fndx == FieldTypes.F_BYTES32.value[0]:
+    elif fndx == FieldTypes.F_BYTES32.value:
         ptype = PrimTypes.B256
     else:
         raise WireopsError("FieldType has invalid index %d" % fndx)

@@ -1,50 +1,53 @@
 # wireops/enum.py
 
-from enum import Enum, IntEnum
+from enum import IntEnum
 
-__all__ = ['FieldTypes', 'ftype_by_val', 'PrimTypes']
+__all__ = ['FieldTypes', 'PrimTypes']
 
 
-class FieldTypes (Enum):
-    """
-    X.value[0] is the index, X.valu[1] is its string representation.
-    """
+# FIELD TYPES =======================================================
 
-    V_BOOL = (0, 'vbool')
-    V_ENUM = (1, 'venum')
-    # -------------------------------------------------------
-    # NEXT PAIR HAVE BEEN DROPPED, perhaps foolishly; IF SE
-    # ARE ADDED BACK IN, PUT THEM IN THEIR CORRECT ORDER
-    #           V_INT32 =    (, 'vint32'),  ('_V_INT64',    'vint64')
-    # -------------------------------------------------------
-    V_UINT32 = (2, 'vuint32')
-    V_SINT32 = (3, 'vsint32')
-    V_UINT64 = (4, 'vuint64')
-    V_SINT64 = (5, 'vsint64')
+FieldTypes = IntEnum('FieldTypes', [
+    'V_BOOL', 'V_ENUM', 'V_UINT32', 'V_SINT32', 'V_UINT64',
+    'V_SINT64',
     # IMPLEMENTED USING B32 -------------
-    F_UINT32 = (6, 'fuint32')
-    F_SINT32 = (7, 'fsint32')
-    F_FLOAT = (8, 'ffloat')
+    'F_UINT32', 'F_SINT32', 'F_FLOAT',
     # IMPLEMENTED USING B64 -------------
-    F_UINT64 = (9, 'fuint64')
-    F_SINT64 = (10, 'fsint64')
-    F_DOUBLE = (11, 'fdouble')
+    'F_UINT64', 'F_SINT64', 'F_DOUBLE',
     # IMPLEMENTED USING LENPLUS --------
-    L_STRING = (12, 'lstring')
-    L_BYTES = (13, 'lbytes')
-    L_MSG = (14, 'lmsg')
+    'L_STRING', 'L_BYTES', 'L_MSG',
     # OTHER FIXED LENGTH BYTE SEQUENCES -
-    F_BYTES16 = (15, 'fbytes16')
-    F_BYTES20 = (16, 'fbytes20')
-    F_BYTES32 = (17, 'fbytes32')
+    'F_BYTES16', 'F_BYTES20', 'F_BYTES32'],
+    start=0)
 
-_ndx = []
-for type_ in FieldTypes:
-    _ndx.append(type_)
+_FIELD_SYMBOLS = [
+    'vbool', 'venum', 'vuint32', 'vsint32', 'vuint64',
+    'vsint64', 'fuint32', 'fsint32', 'ffloat', 'fuint64',
+    'fsint64', 'fdouble', 'lstring', 'lbytes', 'lmsg',
+    'fbytes16', 'fbytes20', 'fbytes32', ]
 
 
-def ftype_by_val(val):
-    return _ndx[val]
+@property
+def _sym(self):
+    """ Return the symbol associated with the member. """
+    return _FIELD_SYMBOLS[self.value]
+
+FieldTypes.sym = _sym       # this is now a method of the class
+
+# Add a method which given a symbol returns the associated member.
+_FIELD_MAP = {}
+for _ in FieldTypes:
+    _FIELD_MAP[_.sym] = _
+
+
+@classmethod
+def _from_sym(cls, symbol):
+    """ Given a symbol, return the associated member. """
+    return _FIELD_MAP[symbol]
+
+FieldTypes.from_sym = _from_sym
+
+# PRIMITIVE TYPES ===================================================
 
 
 class PrimTypes(IntEnum):
