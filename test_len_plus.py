@@ -81,5 +81,6 @@ class TestLenPlus(unittest.TestCase):
         self.round_trip('ndx_'.encode('utf8'))
         self.round_trip('should be a random string of bytes'.encode('utf8'))
 
+
 if __name__ == '__main__':
     unittest.main()

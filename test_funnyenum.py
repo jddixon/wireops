@@ -18,6 +18,7 @@ def _sym(self):
     """ Return the symbol associated with the member. """
     return _SYMBOLS[self.value]
 
+
 FunnyEnum.sym = _sym     # we monkey-patch the class
 
 # Add a method which given a symbol returns the associated member ---
@@ -31,6 +32,7 @@ for _ in FunnyEnum:
 def _from_sym(cls, symbol):
     """ Given a symbol, return the associated member. """
     return _NDX[symbol]
+
 
 FunnyEnum.from_sym = _from_sym  # monkey-patch this into the class too
 
@@ -51,6 +53,7 @@ class TestFunny(unittest.TestCase):
         for member in FunnyEnum:
             symbol = member.sym
             self.assertEqual(FunnyEnum.from_sym(symbol), member)
+
 
 if __name__ == '__main__':
     unittest.main()

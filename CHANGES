@@ -1,6 +1,8 @@
 ~/dev/py/wireops/CHANGES
 
-
+v0.2.2
+    2017-05-07
+        * drop dist/* from repo; plus minor edits                   SLOC 1722
 v0.2.1
     2017-01-30
         * dynamically add methods to FieldTypes, member <-> symbol  SLOC 1584
@@ -22,6 +24,7 @@ v0.1.1
 v0.1.0
     2016-12-15
         * initial commit: split from fieldz
+
 
 
 
