@@ -66,5 +66,6 @@ class TestWireBuffer(unittest.TestCase):
 
         self.assertEqual(wb_.buffer, wb_2.buffer)
 
+
 if __name__ == '__main__':
     unittest.main()

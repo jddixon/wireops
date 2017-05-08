@@ -32,6 +32,7 @@ def _sym(self):
     """ Return the symbol associated with the member. """
     return _FIELD_SYMBOLS[self.value]
 
+
 FieldTypes.sym = _sym       # this is now a method of the class
 
 # Add a method which given a symbol returns the associated member.
@@ -44,6 +45,7 @@ for _ in FieldTypes:
 def _from_sym(cls, symbol):
     """ Given a symbol, return the associated member. """
     return _FIELD_MAP[symbol]
+
 
 FieldTypes.from_sym = _from_sym
 

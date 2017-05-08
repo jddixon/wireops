@@ -168,5 +168,6 @@ class TestFieldTypes(unittest.TestCase):
         len_ = raw.field_hdr_len(ndx, FieldTypes.F_BYTES32)
         self.assertEqual(len_ + 32, typed.fbytes32_len(buf, ndx))
 
+
 if __name__ == '__main__':
     unittest.main()

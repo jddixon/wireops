@@ -128,5 +128,6 @@ class TestFixedLen(unittest.TestCase):
         self.round_trip64(0x8000000000000000)
         self.round_trip64(0xffffffffffffffff)
 
+
 if __name__ == '__main__':
     unittest.main()

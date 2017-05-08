@@ -108,5 +108,6 @@ class TestTFReader(unittest.TestCase):
         self.do_round_trip64(-128 * 256 * 256 * 256 * 256 * 256 * 256 * 256)
         self.do_round_trip64(128 * 256 * 256 * 256 * 256 * 256 * 256 * 256 - 1)
 
+
 if __name__ == '__main__':
     unittest.main()
