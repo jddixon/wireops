@@ -4,8 +4,7 @@ if [ ! -z "${DEV_BASE// }" ]
 then
   cd $DEV_BASE/py/wireops
   
-  autopep8 -ai -r wireops
-  autopep8 -ai *.py
+  autopep8 -air src tests
   echo "not styling .git/ subdir"
   
 else

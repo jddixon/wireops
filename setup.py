@@ -6,7 +6,7 @@
 import re
 from distutils.core import setup
 __version__ = re.search(r"__version__\s*=\s*'(.*)'",
-                        open('wireops/__init__.py').read()).group(1)
+                        open('src/wireops/__init__.py').read()).group(1)
 
 # see http://docs.python.org/distutils/setupscript.html
 
@@ -20,7 +20,7 @@ setup(name='wireops',
       py_modules=[],
       #
       # a package has its own directory with an __init__.py in it
-      packages=['wireops', ],
+      packages=['src/wireops', ],
       #
       # scripts should have a globally unique name; they might be in a
       #   scripts/ subdir; SQuote the script name
