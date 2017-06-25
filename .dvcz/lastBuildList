@@ -7,48 +7,51 @@ Giaje1YAJPNVBt3dlOA5lhBp4GpSYBskJ9UR2Zyt3lgAGK3dEwxYETLMh9VWEV8i
 k2lyCIE/V/CDb9eVDYQgYSJYrnQ/JAPST7NbcY8aI+/0l7QVBhLBpmOCvmS6ofvz
 /QIDAQAB
 -----END PUBLIC KEY-----
-wireops v0.2.2
-2017-05-07 23:49:00
+wireops v0.2.3
+2017-06-25 22:52:40
 # BEGIN CONTENT #
 wireops
  .dvcz
-  builds 93cfb109db515cf3065316678f8b8c695646391b
+  builds b9bba89acd9aa5ba86747f1a6b82585c1905c8cc
   copyright 9ba73bf798bce641eb5082b855c6788fe7ea5833
-  lastBuildList 52226bff2f672114897c398915a226dfc26eab6f
+  lastBuildList a0c19bd691e6a40a2e64209078d062464a61831f
   license 62eb0db178518a8376b23676c2639eb2732c0be8
   projCfg a6f8bb11b6450614513ea2a3637da3e91e8518f4
   projCfg.local 85a2893ae5f2ff476c6e3bdb479d0b02b45cc3ec
-  version cc199297245b62be1237e04c07320a62f065a4fb
+  version 74b698357372c515afbd18a21dda7f6c55262b63
  .gitignore 5185a3cb0539828e50edfc25d60c80ae291197fa
- CHANGES 95407e7662e11c6dfd7440b0531e0d640a343c44
+ CHANGES c34a333e3e25b203da4fc9ecf013a01f1fdf372f
  LICENSE-APACHE-2.0.md 0778fc187f01fb9c7dc7c6a90be255f5e8d846e6
+ MANIFEST.in 62f82443d087557d3425ab01679f5ed229cda2b1
  README.md d6e866b925e7acfcc7de7eedb589da01e086364a
  TODO caac6b7b2cb6c1e741ff89f529b11ffa5203fb53
  bkp2U 7582955b38695ce1b3756b618fd2f8ebd9f7c9b7
- checkCoverage 97164935fe5b04756e7381e31d62349b0290ebdd
+ checkCoverage 249423241cbb22054746689e25f474ee1b6d7b49
  countem ce5f939f4a24a402030cc5777842e214a1f1fdc6
- doPyLint 7e583d91e680fc079890fef7cb3060dfb0f16f22
+ doPyLint 113949055bdb68f338c70b6f0b619efc26feefbb
  ghpDoc
   channels.md c3055b56a7fbc954c1244b4d18d6e84931a4c7e8
   index.md 1ac13c8d040cee2727bb757f5e76b2a9b271d159
  installit 63aae0a1b172cd21cd258e97739b2f58b872651b
  pylintrc dd234fda24a547a9071f1e4608a3c1f3b7de9aa0
- setup.py 5a1f3e44089688228d67d55bab3d9de579270656
- styleit 793c0b57204d2c1ddf13368929aa995f9f15a645
- test.all d2830d8670a77aadb25e03467e081f01c580ea51
- test_field_types.py b2e1d0ded3577e427f5de2e946bbf01a4e7b4794
- test_fixed_len.py 1c64505bbe072de893e8636949c7d4c6ba69c599
- test_funnyenum.py 1d55324bed6ddaf651f278e67e2da254bee4def8
- test_len_plus.py 034573d7940da25657acaddad810d4e73a551ed4
- test_varint.py 8f13b9f91fb32922275438af4bb88265ca5f5d06
- test_wired_buffer.py 233fecaf8856e1223c0a3e0e37bf20892643c3eb
- test_zigzag.py edbfac93ed5aa5484cdeed9ee6ddb7524f154cf3
- wireops
-  __init__.py 2e1aaf02acbc417cc79deca0265654d37cad184e
-  chan.py 3b9d5836f7439ae6d542db0faeb327239db207d3
-  enum.py 82822a9c0521f6c720334e43ea72ab445c083f87
-  raw.py 90ec7a8e0e1a675784b040bcfb614c10223852a2
-  typed.py 121065aa3d88511bc014435b7e3ebc23d0cf0bb6
+ setup.py 34c6476ac280bec2be5c7021ce638f833482fcc7
+ src
+  wireops
+   __init__.py 6fa53f57fc610600774c426ecef5767e7b690973
+   chan.py 3b9d5836f7439ae6d542db0faeb327239db207d3
+   enum.py 82822a9c0521f6c720334e43ea72ab445c083f87
+   raw.py 90ec7a8e0e1a675784b040bcfb614c10223852a2
+   typed.py 121065aa3d88511bc014435b7e3ebc23d0cf0bb6
+ styleit 13c168a612e125065bb7a63a9a9e3309ce53a667
+ test.all a7e71345976b72a821262708a934d93ce5157eb7
+ tests
+  test_field_types.py b2e1d0ded3577e427f5de2e946bbf01a4e7b4794
+  test_fixed_len.py 1c64505bbe072de893e8636949c7d4c6ba69c599
+  test_funnyenum.py 1d55324bed6ddaf651f278e67e2da254bee4def8
+  test_len_plus.py 034573d7940da25657acaddad810d4e73a551ed4
+  test_varint.py 8f13b9f91fb32922275438af4bb88265ca5f5d06
+  test_wired_buffer.py 233fecaf8856e1223c0a3e0e37bf20892643c3eb
+  test_zigzag.py edbfac93ed5aa5484cdeed9ee6ddb7524f154cf3
 # END CONTENT #
 
-GR31d8SOZDdTnLPyfh1Swa30ePDaJM47cWZ8XT6ZdgBYNoUrgjwL0qGOaHkaVViE94mXrT7CHOMmjI7hHeHxacKvwXJBOJ184JMh1ozY8wv2QLTCpebPwa8olLUM3PHNFsiohHT72oVAQeU/1VlE6rzx6DdSCEFX1dmPfn/lBbvjcq9+ylcewtYHSwcekY5d14C2AYnqMR15llyh6PRzxxb6NrkupJFpdeIZTQ+E6iYZMq9NFyXAw/c15nQVI5s/RpEeE8LcqcIxg8/PSYnK3Ycdl6mREHn/lrEauQN9fGr+zb7s6MRQ2GhMjM58pfrO/klKX6VteyzdNIvdpeJXoA==
+QsxFbWCrlvvPeCNCAOgIFvVx8XqanWnx+VCN/SLfg3R/elLXvfjbs8yt0ngyKIG/WwCX+RZJxU1YnEzefvbENYjZ22gTtG/xMsN0gDE0p8ZrCrJe62HQJYbIyNLdX4FeiD9gW366fjzfSeG/yZL4VXKFQ/4E+ARys1gajDEyJ4zs2Gj5hMt9JN/FprovGoM2dfiAUpim9at9xDiOPqzwZeClRKYgbyZ32tihq9bq0vmbq0clDH2vCEcC3tWXKHruHX+rkiBtMrSBRw1mu/0zmj1lYLpOa0yTZZ+CFvUTWB6no2yfFKoOb1vJ1L3lUFMMeSMNcyOO8C5XGb6o1mr1cQ==

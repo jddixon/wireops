@@ -1,8 +1,8 @@
 pylint setup.py                 \
-    wireops/chan.py                \
-    wireops/field_types.py                \
-    wireops/raw.py                \
-    wireops/typed.py                \
-    wireops/__init__.py                  \
-    test*.py
+    src/wireops/chan.py                \
+    src/wireops/field_types.py                \
+    src/wireops/raw.py                \
+    src/wireops/typed.py                \
+    src/wireops/__init__.py                  \
+    tests/test*.py
 
