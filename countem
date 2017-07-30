@@ -6,7 +6,7 @@ then
   
   rm -rf build/* 
   
-  pySloc -L py   -X cover -X htmlcov -X dist -v $@
+  pySloc -L py  -X cover -X htmlcov -X dist -v $@ src/wireops tests/test_field_types.py tests/test_fixed_len.py tests/test_funnyenum.py tests/test_len_plus.py tests/test_varint.py tests/test_wired_buffer.py tests/test_zigzag.py setup.py
 else
   echo "DEV_BASE is not defined"
 fi
