@@ -7,9 +7,6 @@ import ctypes       # XXX
 from wireops import WireopsError
 from wireops.enum import FieldTypes, PrimTypes
 
-# for debugging
-#import binascii
-
 __all__ = [
     'field_hdr_val', 'read_field_hdr', 'field_hdr_len',
     'hdr_field_nbr', 'hdr_ptype',
@@ -657,7 +654,7 @@ class WireBuffer(object):
         """
         if k < 0:
             raise ValueError(
-                "attempt to increase WireBuffer size by negative number of bytes")
+                "attempt to increase WireBuffer size by negative number")
         if self._position + k >= self._capacity:
             # wildly inefficient, I'm sure
             more = bytearray(self._capacity)

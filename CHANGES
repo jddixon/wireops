@@ -1,5 +1,8 @@
 ~/dev/py/wireops/CHANGES
 
+v0.2.6
+    2017-09-12
+        * pep8 etc; fix requirements.txt                            SLOC 1776
 v0.2.5
     2017-08-11
         * add tox.ini, {test_,}requirements.txt; edit cfg files     SLOC 1769
@@ -33,6 +36,7 @@ v0.1.1
 v0.1.0
     2016-12-15
         * initial commit: split from fieldz
+
 
 
 
