@@ -61,8 +61,9 @@ class TestLenPlus(unittest.TestCase):
         offset2 = chan.position
         self.assertEqual(PrimTypes.LEN_PLUS, field_type)
         self.assertEqual(field_nbr, field_nbr2)
-        self.assertEqual(length_as_varint(field_hdr_val(field_nbr, PrimTypes.LEN_PLUS)),
-                         offset2)
+        self.assertEqual(
+            length_as_varint(field_hdr_val(field_nbr, PrimTypes.LEN_PLUS)),
+            offset2)
 
         # then the actual value written -------------------
         tstamp = read_raw_len_plus(chan)

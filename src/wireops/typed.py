@@ -8,7 +8,6 @@ Sets up tables holding put, get, and len functions for specific types.
 
 import ctypes
 import struct
-#import sys
 
 # from wireops.field_types import FieldTypes
 from wireops.enum import FieldTypes
@@ -179,7 +178,7 @@ T_PUT_FUNCS[FieldTypes.F_SINT64.value] = fsint64_put
 
 
 def fdouble_put(chan, val, nnn):
-    #val = ctypes.c_double(val).value
+    # val = ctypes.c_double(val).value
     v_rep = struct.pack('@d', val)       # this gives us an 8-byte string
     varint_ = struct.unpack('@L', v_rep)[0]
     write_b64_field(chan, varint_, nnn)
