@@ -12,7 +12,7 @@ if exists('README.md'):
         long_desc = file.read()
 
 setup(name='wireops',
-      version='0.2.5',
+      version='0.2.7',
       author='Jim Dixon',
       author_email='jddixon@gmail.com',
       long_description=long_desc,
