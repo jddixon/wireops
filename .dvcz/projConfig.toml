@@ -1,37 +1,29 @@
-# projConfig.toml for wireops
-
 [meta]
-    version= '0.1.0'
+version = "0.1.0"
 
 [project]
-    name = 'wireops'               # external name = distribution name
-    package = 'wireops'            # internal name
-    main_lang = 'py'
-    version = '0.2.7'
-    version_date = '2017-09-27'
-    author = 'Jim Dixon'
-    author_email = 'jdd@gmail.com'
-    description='python3 protocol for compressed data transfer'
-    copyright = '2016-2017'
-    dev_status = 'alpha'
-    license = 'mit'
-    relpath = 'py/wireops'
-    state = 'shared'
-    url = 'https://jddixon.github.io/wireops'
+name = "wireops"
+package = "wireops"
+main_lang = "py"
+version = "0.2.8"
+version_date = "2017-12-10"
+author = "Jim Dixon"
+author_email = "jdd@gmail.com"
+description = "python3 protocol for compressed data transfer"
+copyright = "2016-2017"
+dev_status = "alpha"
+license = "mit"
+relpath = "py/wireops"
+state = "shared"
+url = "https://jddixon.github.io/wireops"
 
 [py]
-    packages = ['wireops']
-    package_dir = ['src']
-    test_dir = 'tests'
-    py_modules = []
-    scripts=[]
-    ext_modules = []
-
-    # sdReq output
-    distshare = ['rnglib']
-    requirements=[,'setuptools']
-    test_requirements=[]
-
-    # trove stuff is TBD
-
-
+packages = [ "wireops",]
+package_dir = [ "src",]
+test_dir = "tests"
+py_modules = []
+scripts = []
+ext_modules = []
+distshare = [ "rnglib",]
+requirements = [ "setuptools",]
+test_requirements = []
