@@ -8,17 +8,21 @@ k2lyCIE/V/CDb9eVDYQgYSJYrnQ/JAPST7NbcY8aI+/0l7QVBhLBpmOCvmS6ofvz
 /QIDAQAB
 -----END PUBLIC KEY-----
 wireops
-2017-12-10 21:29:18
+2017-12-12 22:51:16
 # BEGIN CONTENT #
 wireops
+ .cache
+  v
+   cache
+    lastfailed bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f
  .dvcz
-  builds d32306a5e9dd1381d9425c90e0bde78e01ab6394
-  lastBuildList 5e998bef6bf2192624b0a42bd1ca7eec393dfee3
+  builds bf32ec4c22a417d958f7ffc40df3fe6d379bd30c
+  lastBuildList 8142cc3366e7de19322194ea50de81d661fd9f8b
   projCfg c73b88766602e01f7613418da96c69f658ad2443
   projCfg.local 81996e28ba484a2bd1ead47842afbac4d67ce1ad
-  projConfig.toml b34bf0c6f2ed7ad04121f7c9dd24367c44e787fb
+  projConfig.toml 7fbd6ade725326dfe5a0c527566498d3703656f3
  .gitignore c8129c7133b7a7755cefd3dfc62a9af7bc306aa0
- CHANGES 65d81e05833ccf92618091c4651eb8699afb0d94
+ CHANGES c326dc28a7dad99702bc32a0e80a6095fa8e5e7f
  LICENSE-APACHE-2.0.md 110252f997857f545fcadf63e7fc4174b3540171
  MANIFEST.in 7ecdc5eedf233385e0f99ba4c6e4a42212adb46f
  README.md d6e866b925e7acfcc7de7eedb589da01e086364a
@@ -33,21 +37,21 @@ wireops
  installit 63aae0a1b172cd21cd258e97739b2f58b872651b
  pylintrc dd234fda24a547a9071f1e4608a3c1f3b7de9aa0
  requirements.txt 5ebf96587bf55369ff74f922d3a6a960fa91897e
- setup.py ce558ed27f5d91a77298c5a2a13f6ce89007ac53
+ setup.py bbbf46f62db8104fa1e67c1f7f41ef46c2f5686d
  src
   wireops
-   __init__.py feda600cd454327fe367b81a7da6c3891a885764
+   __init__.py 8d4dc93c36e792dae33176af2120f24a4f2a73d2
    chan.py 3b9d5836f7439ae6d542db0faeb327239db207d3
-   enum.py 82822a9c0521f6c720334e43ea72ab445c083f87
-   raw.py faadee8192ddb82915a6d04b5fe44d2cb0d1f86c
-   typed.py f4ed5db8ed1189ba754676b53322a4e746c31107
+   enum.py ebabd80d055041f954fbff96134c4747782a2dc6
+   raw.py fc513c7d6fbb8c6dc60f453474038bd155ce1b46
+   typed.py 8b1057e8edaa9ac5c5891d8e29a1a649412c50d8
  styleit 76019dda62e3a6cd32be98982af8faac0232d150
  test.all d6c3ba89d85394ca4e910952cfa65a92c84cd4a7
  test_requirements.txt 34e713b2a2b69e650f6031c3eadaf83730267313
  tests
   test_field_types.py b2e1d0ded3577e427f5de2e946bbf01a4e7b4794
   test_fixed_len.py 1c64505bbe072de893e8636949c7d4c6ba69c599
-  test_funnyenum.py 1d55324bed6ddaf651f278e67e2da254bee4def8
+  test_funnyenum.py c5ecffc5ceb91c1abdae311caa2e647899b935ab
   test_len_plus.py 016157bd9c06fc7f9554fa97da08b528d91ba4bc
   test_varint.py 8f13b9f91fb32922275438af4bb88265ca5f5d06
   test_wired_buffer.py 233fecaf8856e1223c0a3e0e37bf20892643c3eb
@@ -55,4 +59,4 @@ wireops
  tox.ini d1578475c5190639eb0e9409ad3b311c3845cad0
 # END CONTENT #
 
-TZ/guoVkWpPRElEE5pTj7gm7B/XKTihDe7KzfOjaw83hNdy48LmsSpXZO6zhVYz7miSUpN9dGeuzKzM3vqnIrzFyRQ18xWxtgs3vKg4/2mI+eHRS+AX0hsOOwqAU2NnBHzJef8wMpGdHiN90Tbabug8f5ZB9pjRZwzrvRnBxde3KWt2h3NmOikgAI4d2O7ylodB5sPLczf09FwCkToVvTx2GUQn8vN13O5Xcyo2ESMHMlSZ83T3fapiVXTKuRgnLPiZ6p46B0Qr5PR6ldA2uJiRdTXOcGZIcSpthlI19H26jjhwXe8P/mrIZ2WjBYSdTcEaMkrb19EUbPnOCX4480w==
+S8UOlt77KL/A9oZTh8S/p6U0VSsmVlHsUXM1Y6gAA3mBuDcWNTdEilKsH982viJx/PGoOcIRJaDoKmQGKXm0ulaP6iG433SRrvIlESK3InNJEI9OYGNnsIr6RNLRZllYRq9WYAG05/Q0YoldthUenGPtDFKHC4QjK0FwFVyq3zNg2bTCbMZcG8Oc7DNNcF2hC0lXKu3JTBoLvNrp3jmXNzO+eEIRS5AM7fIoZw8aVB5MRvjZig765DDM8680g8uSarzvBvff0Cn6ecCScKF0Ss8WguAX4BWaje9nJsKLKlJpaD3pNLQivbiYGrWL0b69AcFQDh9oDhPqhsd4TLQAdw==

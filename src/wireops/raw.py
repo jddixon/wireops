@@ -55,7 +55,6 @@ def field_hdr_len(ndx, ftype):
     fndx = ftype.value
     # pylint is a bit thick
     # pylint: disable=unsubscriptable-object
-    # pylint: disable=redefined-variable-type
     if fndx < FieldTypes.F_UINT32.value:
         ptype = PrimTypes.VARINT
     elif fndx < FieldTypes.F_UINT64.value:
@@ -127,8 +126,7 @@ def length_as_varint(value):
         return 8
     elif value < (1 << 63):
         return 9
-    else:
-        return 10
+    return 10
 
 
 def read_raw_varint(chan):
