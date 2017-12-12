@@ -1,24 +1,42 @@
 # wireops/enum.py
 
-from enum import IntEnum
+from enum import IntEnum, auto
 
 __all__ = ['FieldTypes', 'PrimTypes']
 
 
 # FIELD TYPES =======================================================
 
-FieldTypes = IntEnum('FieldTypes', [
-    'V_BOOL', 'V_ENUM', 'V_UINT32', 'V_SINT32', 'V_UINT64',
-    'V_SINT64',
+# FieldTypes = IntEnum('FieldTypes', [
+
+class FieldTypes(IntEnum):
+    V_BOOL = 0
+    V_ENUM = auto()
+    V_UINT32 = auto()
+    V_SINT32 = auto()
+    V_UINT64 = auto()
+    V_SINT64 = auto()
+
     # IMPLEMENTED USING B32 -------------
-    'F_UINT32', 'F_SINT32', 'F_FLOAT',
+    F_UINT32 = auto()
+    F_SINT32 = auto()
+    F_FLOAT = auto()
+
     # IMPLEMENTED USING B64 -------------
-    'F_UINT64', 'F_SINT64', 'F_DOUBLE',
+    F_UINT64 = auto()
+    F_SINT64 = auto()
+    F_DOUBLE = auto()
+
     # IMPLEMENTED USING LENPLUS --------
-    'L_STRING', 'L_BYTES', 'L_MSG',
+    L_STRING = auto()
+    L_BYTES = auto()
+    L_MSG = auto()
+
     # OTHER FIXED LENGTH BYTE SEQUENCES -
-    'F_BYTES16', 'F_BYTES20', 'F_BYTES32'],
-    start=0)
+    F_BYTES16 = auto()
+    F_BYTES20 = auto()
+    F_BYTES32 = auto()
+
 
 _FIELD_SYMBOLS = [
     'vbool', 'venum', 'vuint32', 'vsint32', 'vuint64',

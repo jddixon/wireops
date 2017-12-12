@@ -66,6 +66,7 @@ def decode_sint64(varint_):
 
 
 def not_impl(*arg):
+    _ = arg                     # keep pylint quiet
     raise NotImplementedError
 
 
@@ -204,6 +205,7 @@ T_PUT_FUNCS[FieldTypes.L_BYTES.value] = lbytes_put
 
 
 def lmsg_put(chan, val, nnn):
+    _, _, _ = chan, val, nnn            # keep pylint quiet
     raise NotImplementedError
 
 
@@ -244,10 +246,7 @@ T_GET_FUNCS[FieldTypes.V_ENUM.value] = venum_get
 
 def vbool_get(chan):
     varint_ = read_raw_varint(chan)
-    if varint_:
-        return True
-    else:
-        return False
+    return bool(varint_)
 
 
 T_GET_FUNCS[FieldTypes.V_BOOL.value] = vbool_get
