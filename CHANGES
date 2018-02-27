@@ -1,5 +1,8 @@
 ~/dev/py/wireops/CHANGES
 
+v0.2.10
+    2018-02-27
+        * fix setup.py and tox config files                         SLOC 1812
 v0.2.9
     2017-12-12
         * correct declaration of IntEnums, more pylinting           SLOC 1812
@@ -45,6 +48,7 @@ v0.1.1
 v0.1.0
     2016-12-15
         * initial commit: split from fieldz
+
 
 
 

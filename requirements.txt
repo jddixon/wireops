@@ -1,2 +1,2 @@
-# xlutil_py/requirements.txt     
+# wireops/requirements.txt
 setuptools
