@@ -7,18 +7,18 @@ Giaje1YAJPNVBt3dlOA5lhBp4GpSYBskJ9UR2Zyt3lgAGK3dEwxYETLMh9VWEV8i
 k2lyCIE/V/CDb9eVDYQgYSJYrnQ/JAPST7NbcY8aI+/0l7QVBhLBpmOCvmS6ofvz
 /QIDAQAB
 -----END PUBLIC KEY-----
-wireops
-2018-02-27 17:26:09
+wireops v0.2.11
+2018-03-23 21:59:53
 # BEGIN CONTENT #
 wireops
  .dvcz
-  builds 1961012b5e3537dfe200104c687061d71f8c9beb
-  lastBuildList 724e1a69ae6c9dc37c109121b60f0ac9c2c3bd4f
+  builds 643d3c61a91dc04672f079dfdb424ad1b301d8e5
+  lastBuildList d948398870742d142c14638ba1667da28580fc28
   projCfg c73b88766602e01f7613418da96c69f658ad2443
   projCfg.local 81996e28ba484a2bd1ead47842afbac4d67ce1ad
-  projConfig.toml 5f7163c3b72f90bdde41478579077413c9393a6d
+  projConfig.toml 89774fc53413dfd9a94ed4d13bd5ced8f20dc08e
  .gitignore c8129c7133b7a7755cefd3dfc62a9af7bc306aa0
- CHANGES a1da94fff832ba93d63ed25d8e9bd9c02cae2c35
+ CHANGES 82fc03fa8b08ef629876792943f01b4f8aae70c6
  LICENSE-APACHE-2.0.md 110252f997857f545fcadf63e7fc4174b3540171
  MANIFEST.in 7ecdc5eedf233385e0f99ba4c6e4a42212adb46f
  README.md d6e866b925e7acfcc7de7eedb589da01e086364a
@@ -33,10 +33,10 @@ wireops
  installit 63aae0a1b172cd21cd258e97739b2f58b872651b
  pylintrc dd234fda24a547a9071f1e4608a3c1f3b7de9aa0
  requirements.txt 031d7938b32aad6c3056d3b4721546a607ff9cc6
- setup.py 5027ea915e68461e5e428ac4349cb7307931852d
+ setup.py d18883a49e8ce40a1abef9def1adc71aa553d20e
  src
   wireops
-   __init__.py f2c14daf23297d71996bf8c13f4baf09c6c1fe16
+   __init__.py b7ba98afb96244152224a59ea3dc844d660815df
    chan.py 3b9d5836f7439ae6d542db0faeb327239db207d3
    enum.py ebabd80d055041f954fbff96134c4747782a2dc6
    raw.py fc513c7d6fbb8c6dc60f453474038bd155ce1b46
@@ -55,4 +55,4 @@ wireops
  tox.ini d87d722f5482a3f5e12405aaa7040992ae1d3ee6
 # END CONTENT #
 
-EGPJJsEcDSnQshf/Q7rdClF/H4NGRvRij4RPBrCDgQFpaZGOkU//xzp7nUtk36THBHfl26iNcGLfmordt6HQFrbwa54HkvGtlnCvP4uIl3DL3GB6K3oxFcbAm88iQgX71OyprEAu/vt19ViuwozobcV7Zi1XD4hTjgko2kUOb3/TmfnIX0foMVb3hUOfnO8mKG6ySSy5nemu+mSMsLu8jmurtdSxLYbwAByl9v1G0mBOb2aUm6m/ouDXFKRfbfwiBpmtJeawcLqX+qtTC03g4hG04uNp4rr7WFtlQ7Ot7oa6WMJGdpf6cbwXB1K7+7htGLoqSFGQqxO9sVxyJ5zHPg==
+ZIGRYBj4mC21qlEcErvRYRLYt+5OyRrXVIdwgRuwjw9AYKPIcEaS+QIbgLPHc8Y7wnNMhLM93ANd3gE6j4w4N3mwO5w955Zz2HlmBHZd+GoGMCRjXCFswAo2TtONSjK0DtDPzU/qciL/aUc7BxsiP8wRCQYRdd0+sle1jzW9VmUxiEjlLbf4hxPQAbqDZzCnyMKlEdl7qMzIEzWwq0Ae0fqQcPF8m7/tfuUwV/XcT/VuKiiQq8z+0iLk5wOxHGv15BMfoOgoMG2iCaK94E0SPCvvNzXHwyKOYrlNEpYUgsP69a8jJ7QZD+LP+A+Mzlrkr6HZA2+TArjmaf7nhix/ZA==

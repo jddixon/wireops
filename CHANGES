@@ -1,5 +1,8 @@
 ~/dev/py/wireops/CHANGES
 
+v0.2.11
+    2018-03-23
+        * fix corrupt .dvcz/builds                                  SLOC 1813
 v0.2.10
     2018-02-27
         * fix setup.py and tox config files                         SLOC 1812
@@ -48,6 +51,7 @@ v0.1.1
 v0.1.0
     2016-12-15
         * initial commit: split from fieldz
+
 
 
 
